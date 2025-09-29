@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import { ConnectButton, useWallet } from '@mysten/dapp-kit';
+import { ConnectButton, useCurrentWallet } from '@mysten/dapp-kit';
 import FarmerDashboard from './components/FarmerDashboard';
 
 function App() {
-  const { connected, account } = useWallet();
+  const { isConnected, currentAccount } = useCurrentWallet();
   const [role, setRole] = useState<string | null>(null);
 
   const handleRoleSelection = (selectedRole: string) => {
@@ -21,14 +21,14 @@ function App() {
       <header className="App-header">
         <div className="container">
           <h1>Mshamba DApp</h1>
-          {!connected ? (
+          {!isConnected ? (
             <>
               <p>Connect your Sui Wallet to get started</p>
               <ConnectButton />
             </>
           ) : (
             <>
-              <p>Wallet Connected: {account?.address}</p>
+              <p>Wallet Connected: {currentAccount?.address}</p>
               {!role ? (
                 <>
                   <p>Select your role:</p>
